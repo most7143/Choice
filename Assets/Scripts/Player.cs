@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
     public float MoveSpeed = 5f;
 
+    public InteractionObject InteractionObj;
     public Rigidbody2D Rigid;
     public Animator Anim;
 
@@ -80,5 +81,17 @@ public class Player : MonoBehaviour
     private bool IsAnyMovementKeyHeld()
     {
         return inputQueue.Count > 0;
+    }
+
+    public void Interaction(bool isActivate)
+    {
+        if (isActivate)
+        {
+            InteractionObj.ShowSpace();
+        }
+        else
+        {
+            InteractionObj.HideSpace();
+        }
     }
 }
