@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ChoiceAreaObject : MonoBehaviour
 {
+    public ChoiceSystem System;
+
     public int Index;
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -12,6 +14,7 @@ public class ChoiceAreaObject : MonoBehaviour
 
             if (player != null)
             {
+                System.Index = Index;
                 player.Interaction(true);
             }
         }
@@ -25,6 +28,7 @@ public class ChoiceAreaObject : MonoBehaviour
 
             if (player != null)
             {
+                System.Index = 0;
                 player.Interaction(false);
             }
         }

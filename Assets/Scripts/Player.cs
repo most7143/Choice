@@ -46,11 +46,21 @@ public class Player : MonoBehaviour
         if (inputQueue.Count > 0)
         {
             moveDirection = GetDirectionFromKey(inputQueue[inputQueue.Count - 1]);
+
+            foreach (var key in keys)
+            {
+                if (false == Input.GetKey(key))
+                {
+                    inputQueue.Remove(key);
+                }
+            }
         }
         else
         {
             moveDirection = Vector2.zero;
         }
+
+        Debug.Log(inputQueue.Count);
     }
 
     private Vector2 GetDirectionFromKey(KeyCode key)
