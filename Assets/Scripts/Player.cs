@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     public Rigidbody2D Rigid;
     public Animator Anim;
 
+    public bool IsInteraction;
+    public int KeyCount;
     private Vector2 moveInput;
 
     private List<KeyCode> inputQueue = new List<KeyCode>();
@@ -59,8 +61,6 @@ public class Player : MonoBehaviour
         {
             moveDirection = Vector2.zero;
         }
-
-        Debug.Log(inputQueue.Count);
     }
 
     private Vector2 GetDirectionFromKey(KeyCode key)
@@ -95,6 +95,8 @@ public class Player : MonoBehaviour
 
     public void Interaction(bool isActivate)
     {
+        IsInteraction = isActivate;
+
         if (isActivate)
         {
             InteractionObj.ShowSpace();

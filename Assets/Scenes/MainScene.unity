@@ -834,7 +834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   System: {fileID: 2087222820}
-  Index: 1
+  Index: 0
 --- !u!1 &1241830586
 GameObject:
   m_ObjectHideFlags: 0
@@ -1068,7 +1068,7 @@ GameObject:
   - component: {fileID: 1443739928}
   - component: {fileID: 1443739927}
   m_Layer: 5
-  m_Name: UIDocument
+  m_Name: UIPlayerDocument
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1211,6 +1211,8 @@ MonoBehaviour:
   InteractionObj: {fileID: 890381929}
   Rigid: {fileID: 1672080598}
   Anim: {fileID: 1672080597}
+  IsInteraction: 0
+  KeyCount: 0
 --- !u!212 &1672080600
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1583,7 +1585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   System: {fileID: 2087222820}
-  Index: 2
+  Index: 1
 --- !u!1 &2058098177
 GameObject:
   m_ObjectHideFlags: 0
@@ -11210,6 +11212,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b58a9f796ff08c468161fe274862385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Datas:
+  - {fileID: 11400000, guid: 8c042b32a3b456542b73515069e56a4c, type: 2}
+  - {fileID: 11400000, guid: c4446438f25fc60469dd6eef2dd38c2d, type: 2}
+  Player: {fileID: 1672080599}
+  ChoiceUI: {fileID: 1280930041}
+  PlayerUI: {fileID: 1443739927}
   Level: 0
   Key: 0
   Index: 0

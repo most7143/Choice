@@ -7,13 +7,24 @@ public class UIChoice : MonoBehaviour
     private Label Left;
     private Label Right;
 
-    private void Start()
+    public void ShowRed(string text)
     {
-        Left = Document.rootVisualElement.Q<Label>("RedLabel");
-        Right = Document.rootVisualElement.Q<Label>("BlueLabel");
+        if (Left == null)
+        {
+            Left = Document.rootVisualElement.Q<Label>("RedLabel");
+        }
 
-        Left.text = "dd";
-        Right.text = "22";
+        Left.text = text;
+    }
+
+    public void ShowBlue(string text)
+    {
+        if (Right == null)
+        {
+            Right = Document.rootVisualElement.Q<Label>("BlueLabel");
+        }
+
+        Right.text = text;
     }
 
     private void Update()
