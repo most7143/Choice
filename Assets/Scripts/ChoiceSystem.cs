@@ -8,9 +8,6 @@ public class ChoiceSystem : MonoBehaviour
 
     public Player Player;
 
-    public UIChoice ChoiceUI;
-    public UIDocument PlayerUI;
-
     private ChoiceData _currentChoiceData;
 
     public int Level = 0;
@@ -39,9 +36,6 @@ public class ChoiceSystem : MonoBehaviour
         string redText = string.Format(data.Description, data.Chances[0] * 100, data.RewardValues[0]);
         string blueText = string.Format(data.Description, data.Chances[1] * 100, data.RewardValues[1]);
 
-        ChoiceUI.ShowRed(redText);
-        ChoiceUI.ShowBlue(blueText);
-
         _currentChoiceData = data;
     }
 
@@ -69,10 +63,5 @@ public class ChoiceSystem : MonoBehaviour
 
     public void RefreshUI(ChoiceRewards reward)
     {
-        if (reward == ChoiceRewards.Key)
-        {
-            var image = PlayerUI.rootVisualElement.Q<VisualElement>("Key1");
-            image.style.unityBackgroundImageTintColor = Color.white;
-        }
     }
 }
