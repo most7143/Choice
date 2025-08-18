@@ -8,6 +8,11 @@ public class ChoiceSystem : MonoBehaviour
 
     public Player Player;
 
+    public UIKeyGroup KeyGroup;
+
+    public UIChoice RedChoice;
+    public UIChoice BlueChoice;
+
     private ChoiceData _currentChoiceData;
 
     public int Level = 0;
@@ -17,7 +22,7 @@ public class ChoiceSystem : MonoBehaviour
 
     public void Start()
     {
-        SetChoice(Datas[0]);
+        RerollChoice();
     }
 
     public void Update()
@@ -31,11 +36,20 @@ public class ChoiceSystem : MonoBehaviour
         }
     }
 
+    public void RerollChoice()
+    {
+        int rand = Random.Range(0, Datas.Count);
+
+        SetChoice(Datas[rand]);
+    }
+
     public void SetChoice(ChoiceData data)
     {
         string redText = string.Format(data.Description, data.Chances[0] * 100, data.RewardValues[0]);
         string blueText = string.Format(data.Description, data.Chances[1] * 100, data.RewardValues[1]);
 
+        RedChoice.SetText(redText);
+        BlueChoice.SetText(blueText);
         _currentChoiceData = data;
     }
 
@@ -49,6 +63,8 @@ public class ChoiceSystem : MonoBehaviour
                 GetReward(_currentChoiceData.Reward, _currentChoiceData.RewardValues[index]);
             }
         }
+
+        RerollChoice();
     }
 
     public void GetReward(ChoiceRewards reward, float value)
@@ -57,11 +73,19 @@ public class ChoiceSystem : MonoBehaviour
         {
             Key += (int)value;
         }
+        else if (reward == ChoiceRewards.HP)
+        {
+            Player.RefreshHP((int)value);
+        }
 
         RefreshUI(reward);
     }
 
     public void RefreshUI(ChoiceRewards reward)
     {
+        if (reward == ChoiceRewards.Key)
+        {
+            KeyGroup.RefreshKey(Key);
+        }
     }
 }

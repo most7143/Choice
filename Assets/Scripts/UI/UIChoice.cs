@@ -1,33 +1,13 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class UIChoice : MonoBehaviour
 {
-    public UIDocument Document;
-    private Label Left;
-    private Label Right;
+    public TextMeshProUGUI Text;
 
-    public void ShowRed(string text)
+    public void SetText(string text)
     {
-        if (Left == null)
-        {
-            Left = Document.rootVisualElement.Q<Label>("RedLabel");
-        }
-
-        Left.text = text;
-    }
-
-    public void ShowBlue(string text)
-    {
-        if (Right == null)
-        {
-            Right = Document.rootVisualElement.Q<Label>("BlueLabel");
-        }
-
-        Right.text = text;
-    }
-
-    private void Update()
-    {
+        Text.text = text;
     }
 }
