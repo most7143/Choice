@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,15 +7,31 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector] public Animator Anim;
     [HideInInspector] public Rigidbody2D Rigid;
     [HideInInspector] public float MoveSpeed;
+    [HideInInspector] public float DashSpeed = 30f;
 
     private List<KeyCode> inputQueue = new List<KeyCode>();
     private Vector2 moveDirection = Vector2.zero;
     private Vector2 lastMoveDirection = Vector2.down;
 
+    private float dashCooldown = 3f;
+    private float currentDashCooldown;
+    private float dashTime = 0.1f;
+    private float currentDashTime = 0f;
+    private bool IsDash;
+
     private void Update()
     {
         HandleInput();
         AnimationMovement();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (currentDashCooldown <= 0)
+            {
+                currentDashTime = dashTime;
+                IsDash = true;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -22,7 +39,20 @@ public class PlayerInput : MonoBehaviour
         if (Rigid == null)
             return;
 
-        Rigid.linearVelocity = moveDirection * MoveSpeed;
+        if (false == IsDash)
+        {
+            Rigid.linearVelocity = moveDirection * MoveSpeed;
+        }
+
+        if (currentDashCooldown > 0)
+        {
+            currentDashCooldown -= Time.deltaTime;
+        }
+
+        if (currentDashTime > 0)
+        {
+            Dash();
+        }
     }
 
     public void HandleInput()
@@ -77,7 +107,7 @@ public class PlayerInput : MonoBehaviour
         if (Anim == null)
             return;
 
-        if (moveDirection != Vector2.zero)
+        if (moveDirection != Vector2.zero && false == IsDash)
         {
             lastMoveDirection = moveDirection;
         }
@@ -91,5 +121,17 @@ public class PlayerInput : MonoBehaviour
     private bool IsAnyMovementKeyHeld()
     {
         return inputQueue.Count > 0;
+    }
+
+    private void Dash()
+    {
+        currentDashTime -= Time.deltaTime;
+        Rigid.linearVelocity = lastMoveDirection * DashSpeed;
+
+        if (currentDashTime < 0)
+        {
+            IsDash = false;
+            currentDashCooldown = dashCooldown;
+        }
     }
 }
