@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector] public Rigidbody2D Rigid;
     [HideInInspector] public float MoveSpeed;
     [HideInInspector] public float DashSpeed = 30f;
+    public PlayerParticle PlayerParticle;
 
     private List<KeyCode> inputQueue = new List<KeyCode>();
     private Vector2 moveDirection = Vector2.zero;
@@ -24,12 +25,13 @@ public class PlayerInput : MonoBehaviour
         HandleInput();
         AnimationMovement();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             if (currentDashCooldown <= 0)
             {
                 currentDashTime = dashTime;
                 IsDash = true;
+                PlayerParticle.StartDashParticle();
             }
         }
     }
@@ -132,6 +134,7 @@ public class PlayerInput : MonoBehaviour
         {
             IsDash = false;
             currentDashCooldown = dashCooldown;
+            PlayerParticle.StopDashParticle();
         }
     }
 }
