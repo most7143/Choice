@@ -17,6 +17,12 @@ public enum ChioceTiers
     Tier6,
 }
 
+public enum SkillNames
+{
+    None,
+    Dash,
+}
+
 public enum ChoiceTypes
 {
     None,

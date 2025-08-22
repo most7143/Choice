@@ -6,7 +6,6 @@ public class Player : MonoBehaviour
     public int MaxHealth = 10;
     public int CurrentHealth;
     public float MoveSpeed = 5f;
-    public float DashSpeed = 30f;
 
     public PlayerInput Input;
     public InteractionObject InteractionObj;
@@ -21,7 +20,6 @@ public class Player : MonoBehaviour
         Input.Anim = Anim;
         Input.Rigid = Rigid;
         Input.MoveSpeed = MoveSpeed;
-        Input.DashSpeed = DashSpeed;
     }
 
     public void RefreshHP(int value)

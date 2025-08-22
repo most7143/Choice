@@ -7,18 +7,15 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector] public Animator Anim;
     [HideInInspector] public Rigidbody2D Rigid;
     [HideInInspector] public float MoveSpeed;
-    [HideInInspector] public float DashSpeed = 30f;
-    public PlayerParticle PlayerParticle;
+
+    public SkillSystem SkillSystem;
 
     private List<KeyCode> inputQueue = new List<KeyCode>();
     private Vector2 moveDirection = Vector2.zero;
     private Vector2 lastMoveDirection = Vector2.down;
 
-    private float dashCooldown = 3f;
-    private float currentDashCooldown;
-    private float dashTime = 0.1f;
-    private float currentDashTime = 0f;
-    private bool IsDash;
+    public bool IsDash
+    { get { return SkillSystem.GetActivate(SkillNames.Dash); } }
 
     private void Update()
     {
@@ -27,12 +24,7 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            if (currentDashCooldown <= 0)
-            {
-                currentDashTime = dashTime;
-                IsDash = true;
-                PlayerParticle.StartDashParticle();
-            }
+            SkillSystem.OnSkill(SkillNames.Dash);
         }
     }
 
@@ -45,15 +37,9 @@ public class PlayerInput : MonoBehaviour
         {
             Rigid.linearVelocity = moveDirection * MoveSpeed;
         }
-
-        if (currentDashCooldown > 0)
+        else
         {
-            currentDashCooldown -= Time.deltaTime;
-        }
-
-        if (currentDashTime > 0)
-        {
-            Dash();
+            Rigid.linearVelocity = lastMoveDirection * SkillSystem.GetValue(SkillNames.Dash);
         }
     }
 
@@ -123,18 +109,5 @@ public class PlayerInput : MonoBehaviour
     private bool IsAnyMovementKeyHeld()
     {
         return inputQueue.Count > 0;
-    }
-
-    private void Dash()
-    {
-        currentDashTime -= Time.deltaTime;
-        Rigid.linearVelocity = lastMoveDirection * DashSpeed;
-
-        if (currentDashTime < 0)
-        {
-            IsDash = false;
-            currentDashCooldown = dashCooldown;
-            PlayerParticle.StopDashParticle();
-        }
     }
 }
